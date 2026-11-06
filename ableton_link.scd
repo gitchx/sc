@@ -9,17 +9,12 @@ s.waitForBoot {
 
     // Ableton Link の quantum と SuperCollider の小節を4拍にする
     // latency は音声サーバーと同じ値にするのが重要
-    ~link = LinkClock(1).latency_(s.latency);
+    ~link = LinkClock(1).latency_(0);
     ~link.quantum = 4;
     ~link.beatsPerBar = 4;
 
-    "Ableton Link ready".postln;
-    ("Peers: " ++ ~link.numPeers).postln;
-    ("Tempo: " ++ (~link.tempo * 60).round(0.1) ++ " BPM").postln;
-
     s.options.numInputBusChannels = 0;
     s.options.sampleRate = 44100;
-    s.boot;
 };
 )
 
