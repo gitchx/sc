@@ -1,5 +1,5 @@
 // Audio Device Settings
-s.options.device = "MacBook Airのス";
+s.options.device = "Loopback Audio";
 
 ServerOptions.devices;
 
@@ -24,7 +24,7 @@ s.waitForBoot {
 
 ~link.stop;
 
-~link.tempo = 60 / 60;
+~link.tempo = 80 / 60;
 
 //Ableton Live Link Testing
 (

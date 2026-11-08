@@ -1,7 +1,6 @@
-"song.scd".loadRelative
-
-// Bass init
 (
+"song.scd".loadRelative;
+// Bass init
 ~bass = Pbindf(
 	~song,
   \type, \midi,
@@ -25,7 +24,6 @@ Pdef(\bass,
 		~bass
 	)
 );
-)
 
 ~bassPlay = {
 Pdef(\bass).play(~link, quant: 4);
@@ -35,6 +33,8 @@ Pdef(\bass).play(~link, quant: 4);
 Pdef(\bass).stop;
 };
 
+)
+
 //////////////////////////////////////
 // for Live Coding
 //////////////////////////////////////
@@ -42,6 +42,8 @@ Pdef(\bass).stop;
 ~bassSeq.([0,0,0,0,0,0,0,4]);
 
 ~bassSeq.([0,2,4,2]);
+
+~bassSeq.([0, Rest(), Rest(), Rest()]);
 
 ~bassDur.(0.5);
 

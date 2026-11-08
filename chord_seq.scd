@@ -1,22 +1,62 @@
-~synth = Pbind(
+(
+"song.scd".loadRelative;
+// chord init
+~chord = Pbindf(
+	~song,
   \type, \midi,
   \midiout, m,
   \chan, 2,
-  \scale, Scale.minor,
-  \root, 4
+);
+~chordSeq = { |seq|
+  Pdefn(\chordSeq, Pseq(seq, inf));
+};
+~chordDur = { |dur|
+  Pdefn(\chordDur, dur)
+};
+Pdef(\chord,
+	Pchain(
+	  Pbindef(\chordParam,
+	    \degree, Pdefn(\chordSeq),
+	    \dur, Pdefn(\chordDur),
+	    \velocity, 100,
+	    \octave, 5
+  	),
+		~chord
+	)
+);
+
+~chordPlay = {
+Pdef(\chord).play(~link, quant: 4);
+};
+
+~chordStop = {
+Pdef(\chord).stop;
+};
+
 )
 
-Pdef(
-  \bass,
-  Pbindf(
-    ~synth,
-    \degree, Pseq([0 ,2 ,4 ,2], inf),
-    \dur, 1,
-    \amp, 100,
-    \octave, 4
-  )
-)
 
-Pdef(\bass).play(~link, quant: 4);
+//////////////////////////////////////
+// for Live Coding
+//////////////////////////////////////
 
-Pdef(\bass).stop;
+
+~chordSeq.([0,0,0,0,0,0,0,4]);
+
+~chordSeq.([0,2,4,2]);
+
+~chordSeq.([0, Rest(), Rest(), Rest()]);
+
+~chordSeq.(
+  [0, Rest(), Rest(), Rest()],
+  [2, Rest(), Rest(), Rest()]
+);
+
+~chordDur.(1);
+
+~chordDur.(0.5);
+
+~chordPlay.()
+
+~chordStop.()
+
